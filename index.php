@@ -10,7 +10,7 @@ define("USER", "root");
 define("PASS", "");
 define("DOMAIN",currentDomain());
 
-require_once "../database/DataBase.php";
+require_once "database/DataBase.php";
 
 $conn = new \database\DataBase();
 
@@ -50,5 +50,6 @@ function methodField()
 
 function currentUrl()
 {
- return index . phpcurrentDomain() . $_SERVER['REQUEST_URI'];
+ return currentDomain() . $_SERVER['REQUEST_URI'];
 }
+
