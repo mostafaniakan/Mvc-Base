@@ -54,24 +54,31 @@ class DataBase
     }
 
     // Insert Data Into Database
-    public function Insert($query, $values = [])
+    public function Insert($table, $fields, $data)
     {
         try {
-            // Prepare the SQL statement
-            $result = $this->conn->prepare($query);
+            // Sanitize table name and field names to avoid SQL injection
+            $table = preg_replace('/[^a-zA-Z0-9_]/', '', $table); // Allow only alphanumeric characters and underscores
+            $fields = array_map(function ($field) {
+                return preg_replace('/[^a-zA-Z0-9_]/', '', $field); // Sanitize field names
+            }, $fields);
 
-            // Execute the query with values (supporting both single and multiple values)
-            $result->execute((array)$values);
+            // Prepare the SQL statement with named placeholders
+            $statement = $this->conn->prepare("INSERT INTO" . $table . "(" . implode(', ', $fields) . " ,created_at) VALUES ( :" . implode(', :', $fields) . ", now() );");
 
-            // Return the last inserted ID (if applicable)
+            // Bind the data with field names and execute
+            $statement->execute(array_combine($fields, $data));
+
+            // Return the last inserted ID
             return $this->conn->lastInsertId();
 
         } catch (PDOException $e) {
-            // Handle error and display message
+            // Handle error
             echo 'Error: ' . $e->getMessage();
             return false;
         }
     }
+
 
 
 }
