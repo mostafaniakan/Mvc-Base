@@ -1,16 +1,17 @@
 <?php
-
+namespace database;
+use PDO;
+use PDOException;
 class DataBase
 {
-    protected $host = "localhost";
-
-    protected $db_name = "";
-    protected $user = "root";
-    protected $pass = "";
+    protected $host = HOST;
+    protected $db_name = DB_NAME;
+    protected $user = USER;
+    protected $pass = PASS;
 
     protected $conn;
 
-    public function connect()
+    public function __construct()
     {
         $this->conn = null;
 
@@ -21,6 +22,6 @@ class DataBase
             echo $e->getMessage();
         }
 
-        return $this->conn;
+        return  $this->conn;
     }
 }
