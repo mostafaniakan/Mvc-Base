@@ -10,7 +10,7 @@ define("USER", "root");
 define("PASS", "");
 define("DOMAIN",currentDomain());
 
-require_once "database/DataBase.php";
+require_once "../database/DataBase.php";
 
 $conn = new \database\DataBase();
 
