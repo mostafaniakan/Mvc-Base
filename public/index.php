@@ -1,6 +1,8 @@
 <?php
-
 session_start();
+require_once '../app/start.php';
+$init=new Routing;
+
 
 define("BASE_PATH", dirname(__FILE__));
 define("ERROR", true);
@@ -8,11 +10,11 @@ define("HOST", "127.0.0.1");
 define("DB_NAME", "permition");
 define("USER", "root");
 define("PASS", "");
-define("DOMAIN",currentDomain());
+define("DOMAIN", currentDomain());
 
-require_once "../database/DataBase.php";
+require_once "../system/libraries/DataBase.php";
 
-$conn = new \database\DataBase();
+$conn = new \system\libraries\DataBase();
 
 // Helper Function
 function protocol()
@@ -26,20 +28,20 @@ function protocol()
 
 function currentDomain()
 {
-  return protocol() . $_SERVER["HTTP_HOST"];
+    return protocol() . $_SERVER["HTTP_HOST"];
 }
 
 function assets($src)
 {
-    $domain = trim(DOMAIN,'/');
-    $src=$domain.'/'.trim($src,'/');
+    $domain = trim(DOMAIN, '/');
+    $src = $domain . '/' . trim($src, '/');
     return $src;
 }
 
 function url($url)
 {
-    $domain = trim(DOMAIN,'/');
-    $url=$domain.'/'.trim($url,'/');
+    $domain = trim(DOMAIN, '/');
+    $url = $domain . '/' . trim($url, '/');
     return $url;
 }
 
@@ -50,6 +52,6 @@ function methodField()
 
 function currentUrl()
 {
- return currentDomain() . $_SERVER['REQUEST_URI'];
+    return currentDomain() . $_SERVER['REQUEST_URI'];
 }
 
