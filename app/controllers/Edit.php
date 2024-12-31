@@ -2,6 +2,10 @@
 class Edit
 {
     public function __construct(){
-        echo "hi";
     }
+
+    public function edit($id){
+        echo "edit ".$id;
+    }
+
 }
